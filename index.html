@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F4536">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pilisborosjenői Lovasiskola">
+<meta property="og:description" content="Lovasoktatás, tereplovaglás, póniséta és lovastáborok Pilisborosjenőn, a Rozália-kápolnánál.">
+<meta property="og:locale" content="hu_HU">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}[hidden]{display:none!important}</style>
+<title>Pilisborosjenői Lovasiskola</title>
+<meta name="description" content="Lovasoktatás, tereplovaglás, póniséta és lovastáborok Pilisborosjenőn, a Rozália-kápolnánál.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F3EC; --surface:#FFFFFF; --surface-2:#E4E9DD; --ink:#15251E; --muted:#56675D; --line:#CCD5C6;
+  --pine:#1F4536; --on-pine:#F1F3EC; --accent:#9A5A1C; --accent-soft:#F3E3CC; --accent-ink:#FFFFFF;
+  --sky1:#F7E6C4; --sky2:#DDE8DA; --sun:#F2B544;
+  --ridge-far:#AFC4AC; --ridge-mid:#6F9277; --ridge-near:#3F6B52; --meadow:#2C5240; --on-meadow:#EEF3EA;
+  --fence:#7A5634; --chapel:#FAF7EF; --chapel-roof:#8C3F2B; --tree:#2E5744;
+  --shadow:0 18px 40px -22px rgba(20,37,30,.55);
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F1714; --surface:#16211C; --surface-2:#1D2B25; --ink:#E4EBE3; --muted:#9DB0A4; --line:#2A3A33;
+    --pine:#1B3A2E; --on-pine:#E4EBE3; --accent:#E0A14F; --accent-soft:#33291B; --accent-ink:#1A140A;
+    --sky1:#1C2C3E; --sky2:#122019; --sun:#EDE6CF;
+    --ridge-far:#253A40; --ridge-mid:#1D302B; --ridge-near:#172821; --meadow:#101C17; --on-meadow:#DCE5DC;
+    --fence:#6A5238; --chapel:#CFC8B6; --chapel-roof:#6B3526; --tree:#132019;
+    --shadow:0 18px 40px -20px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1714; --surface:#16211C; --surface-2:#1D2B25; --ink:#E4EBE3; --muted:#9DB0A4; --line:#2A3A33;
+  --pine:#1B3A2E; --on-pine:#E4EBE3; --accent:#E0A14F; --accent-soft:#33291B; --accent-ink:#1A140A;
+  --sky1:#1C2C3E; --sky2:#122019; --sun:#EDE6CF;
+  --ridge-far:#253A40; --ridge-mid:#1D302B; --ridge-near:#172821; --meadow:#101C17; --on-meadow:#DCE5DC;
+  --fence:#6A5238; --chapel:#CFC8B6; --chapel-roof:#6B3526; --tree:#132019;
+  --shadow:0 18px 40px -20px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin-inline:auto;padding-inline:20px}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:.55em;padding:.85em 1.35em;border-radius:999px;font-weight:600;font-size:1rem;text-decoration:none;border:1.5px solid transparent;cursor:pointer;font-family:inherit;transition:transform .15s ease, background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{border-color:currentColor;color:var(--ink);background:transparent}
+.num{font-variant-numeric:tabular-nums}
+.fb-ico{width:1.15em;height:1.15em;flex:none}
+
+/* Header */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-size:1.12rem;line-height:1.1}
+.brand svg{flex:none;color:var(--accent)}
+.head-actions{display:flex;align-items:center;gap:10px}
+.nav{display:flex;align-items:center;gap:22px}
+.nav a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--muted)}
+.nav a:hover{color:var(--ink)}
+.nav .btn{padding:.55em 1.05em;font-size:.92rem;color:var(--accent-ink)}
+.fb-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#1877F2;color:#fff;flex:none;transition:transform .15s}
+.fb-btn:hover{transform:scale(1.07)}
+.fb-btn svg{width:22px;height:22px}
+.menu-btn{display:none;background:none;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);padding:8px 12px;font:inherit;font-weight:600;cursor:pointer}
+@media (max-width:860px){
+  .menu-btn{display:inline-flex}
+  .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 16px;display:none}
+  .nav.open{display:flex}
+  .nav a{padding:12px 0;border-bottom:1px solid var(--line);font-size:1.05rem}
+  .nav .btn{margin-top:12px;justify-content:center;border-bottom:0}
+}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 100%);overflow:hidden;position:relative}
+.hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;padding-block:clamp(16px,4vh,40px) clamp(36px,6vh,64px)}
+.hero h1{font-size:clamp(1.8rem,4.9vw,3.6rem);margin-top:10px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-lead{margin-top:16px;font-size:clamp(1.05rem,1.6vw,1.2rem);max-width:48ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.hero-copy{position:relative;z-index:3}
+.fan{position:relative;aspect-ratio:1/.86;width:100%}
+.card-photo{position:absolute;width:54%;aspect-ratio:3/4;margin:0;padding:7px;background:var(--surface);border-radius:8px;box-shadow:var(--shadow);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.card-photo img{width:100%;height:100%;object-fit:cover;border-radius:4px}
+.cp1{left:2%;top:10%;transform:rotate(-8deg)}
+.cp2{left:23%;top:2%;transform:rotate(-1deg);z-index:2}
+.cp3{right:2%;top:8%;transform:rotate(7deg)}
+@media (hover:hover){
+  .fan:hover .cp1{transform:translate(-22%,4%) rotate(-13deg)}
+  .fan:hover .cp3{transform:translate(22%,4%) rotate(12deg)}
+  .fan:hover .cp2{transform:rotate(0) translateY(-4%) scale(.9)}
+}
+@media (hover:hover) and (min-width:1100px){
+  .fan:hover .cp1{transform:translate(-34%,5%) rotate(-14deg)}
+  .fan:hover .cp3{transform:translate(34%,5%) rotate(13deg)}
+}
+@media (prefers-reduced-motion: no-preference){
+  .cp1{animation:deal1 .9s .25s cubic-bezier(.2,.7,.2,1) backwards}
+  .cp2{animation:deal2 .9s .1s cubic-bezier(.2,.7,.2,1) backwards}
+  .cp3{animation:deal3 .9s .4s cubic-bezier(.2,.7,.2,1) backwards}
+  @keyframes deal1{from{transform:translate(40%,30px) rotate(0)}}
+  @keyframes deal2{from{transform:translateY(40px) rotate(0)}}
+  @keyframes deal3{from{transform:translate(-40%,30px) rotate(0)}}
+}
+@media (max-width:860px){
+  .hero-inner{grid-template-columns:1fr;gap:28px}
+  .hero h1{font-size:min(3rem,calc((100vw - 40px) / 11.5))}
+  .fan{max-width:480px;justify-self:center}
+}
+
+/* Facts strip */
+.facts{background:var(--meadow);color:var(--on-meadow);position:relative;z-index:2}
+.facts ul{list-style:none;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-block:28px}
+.facts li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding-inline:16px}
+.facts li+li{border-left:1px solid color-mix(in srgb,var(--on-meadow) 30%,transparent)}
+.facts b{font-family:var(--display);font-weight:400;font-size:1.3rem}
+.facts span{font-size:.9rem;opacity:.8}
+@media (max-width:680px){.facts ul{padding-block:14px}.facts li{padding-inline:6px}.facts b{font-size:.95rem;line-height:1.2}.facts span{display:none}}
+
+section{scroll-margin-top:var(--head-h,65px)}
+.section{padding-block:clamp(28px,4vw,48px) clamp(48px,6vw,80px)}
+.section-head{display:flex;flex-direction:column;gap:12px;max-width:640px;margin-bottom:32px}
+.section-head h2{font-size:clamp(2rem,4.2vw,3rem)}
+.section-head p{color:var(--muted)}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,6vw,80px);align-items:center}
+.about-grid h2{font-size:clamp(2rem,4.2vw,3.1rem);margin-top:12px}
+.about-text{display:flex;flex-direction:column;gap:18px;font-size:1.06rem;max-width:62ch;margin-top:24px}
+.about-text .quote{font-family:var(--display);font-size:1.3rem;line-height:1.35;color:var(--accent)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.duo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:16px;box-shadow:var(--shadow)}
+.duo img:nth-child(2){margin-top:64px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:72px;padding-top:40px;border-top:1px solid var(--line)}
+.feature{display:flex;flex-direction:column;gap:10px}
+.feature svg{color:var(--accent)}
+.feature h3{font-size:1.3rem}
+.feature p{color:var(--muted);font-size:.98rem}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}.duo img:nth-child(2){margin-top:36px}.features{grid-template-columns:1fr;gap:24px}}
+
+/* Prices */
+.prices{background:var(--surface-2)}
+.chooser{background:var(--surface);border-radius:var(--radius);padding:24px;display:grid;grid-template-columns:auto 1fr;gap:18px 32px;align-items:center;margin-bottom:28px;border:1px solid var(--line)}
+.chooser-label{font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.93rem;font-weight:500;padding:.5em 1em;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.select-wrap{display:none;position:relative}
+.select-wrap select{width:100%;appearance:none;-webkit-appearance:none;font:inherit;font-size:1rem;font-weight:600;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:.8em 2.6em .8em 1em;cursor:pointer}
+.select-wrap select:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-color:var(--accent)}
+.select-wrap svg{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--accent);pointer-events:none}
+.chooser-result{grid-column:1/-1;color:var(--muted);min-height:3.2em}
+.chooser-result strong{color:var(--ink)}
+@media (max-width:680px){.chooser{grid-template-columns:1fr}}
+
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:1000px){.price-grid{grid-template-columns:repeat(2,1fr)}}
+.price{background:var(--surface);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden;border:2px solid transparent;transition:border-color .25s, transform .25s, box-shadow .25s}
+.price.is-match{border-color:var(--accent);transform:translateY(-6px);box-shadow:var(--shadow)}
+.price-media{position:relative;aspect-ratio:4/3;overflow:hidden}
+.price-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.price:hover .price-media img{transform:scale(1.05)}
+.price-media .tag{position:absolute;left:12px;top:12px}
+.dial{position:absolute;right:12px;bottom:-26px;background:var(--surface);border-radius:50%;box-shadow:var(--shadow)}
+.dial .track{stroke:var(--surface-2)}
+.dial .fill{stroke:var(--accent);transition:stroke-dashoffset .8s ease}
+.dial text{fill:var(--ink);font-family:var(--body);font-weight:700;font-size:15px}
+.dial .unit{fill:var(--muted);font-weight:500;font-size:9px;letter-spacing:.08em}
+.price-media{overflow:visible}
+.price-media .clip{position:absolute;inset:0;overflow:hidden}
+.price-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.price h3{font-size:1.35rem;padding-right:64px}
+.price p{color:var(--muted);font-size:.95rem;flex:1}
+.price .amount{font-family:var(--display);font-size:1.9rem;color:var(--ink);line-height:1;margin-top:6px}
+.price .amount small{font-family:var(--body);font-size:.9rem;color:var(--muted);margin-left:4px}
+.tag{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.35em .75em;border-radius:6px;background:var(--surface);color:var(--accent)}
+.notice{display:flex;gap:14px;align-items:flex-start;margin-top:24px;padding:18px 20px;border-radius:var(--radius);background:var(--surface);border:1px dashed var(--line)}
+.notice svg{flex:none;color:var(--accent);margin-top:2px}
+
+/* Camps */
+.camp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.camp-grid{grid-template-columns:1fr}}
+.camp{position:relative;border-radius:var(--radius);min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:24px;overflow:hidden;color:#fff;isolation:isolate}
+.camp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .8s ease}
+.camp:hover img{transform:scale(1.06)}
+.camp::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,var(--tint) 0%,color-mix(in srgb,var(--tint) 55%,transparent) 42%,transparent 75%)}
+.camp .season{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.camp h3{font-size:1.8rem}
+.camp p{font-size:.95rem;opacity:.92}
+.camp.spring{--tint:#2F5A2B}
+.camp.summer{--tint:#7A4A12}
+.camp.autumn{--tint:#6B2E16}
+@media (max-width:860px){.camp{min-height:260px}}
+.camp-cta{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted)}
+
+/* Gallery */
+.gallery{background:var(--surface-2)}
+.masonry{columns:3 280px;column-gap:14px}
+.shot{break-inside:avoid;margin:0 0 14px;padding:0;border:0;background:none;display:block;width:100%;cursor:zoom-in;border-radius:12px;overflow:hidden;position:relative}
+.shot img{width:100%;height:auto;transition:transform .6s ease, filter .3s}
+.shot:hover img{transform:scale(1.04)}
+.shot span{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;color:#fff;font-size:.9rem;font-weight:600;text-align:left;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);opacity:0;transition:opacity .25s}
+.shot:hover span,.shot:focus-visible span{opacity:1}
+@media (hover:none){.shot span{opacity:1}}
+
+.lightbox[hidden]{display:none}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(8,12,10,.92);display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:minmax(0,1fr);align-items:center;gap:8px;padding:calc(16px + env(safe-area-inset-top,0px)) 12px calc(16px + env(safe-area-inset-bottom,0px))}
+.lightbox figure{margin:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0}
+.lightbox img{max-height:calc(100vh - 120px);max-height:calc(100dvh - 120px);max-width:min(100%,1100px);width:auto;height:auto;object-fit:contain;border-radius:8px}
+.lightbox figcaption{color:#E8ECE6;font-size:.85rem;opacity:.75;font-variant-numeric:tabular-nums;text-align:center}
+.lb-btn{width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:1.6rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.lb-btn:hover{background:rgba(255,255,255,.24)}
+.lb-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;font-size:1.3rem}
+@media (max-width:600px){.lightbox{grid-template-columns:1fr}.lb-prev,.lb-next{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px))}.lb-prev{left:calc(50% - 60px)}.lb-next{left:calc(50% + 12px)}.lightbox figure{padding-bottom:64px}.lightbox img{max-height:calc(100vh - 190px);max-height:calc(100dvh - 190px)}}
+
+/* Contact */
+.contact-card{display:grid;grid-template-columns:1fr 1fr;min-height:clamp(420px,42vw,560px);overflow:hidden;background:var(--pine);color:var(--on-pine)}
+.contact-photo{position:relative;min-height:320px}
+.contact-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.contact-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,transparent 55%,var(--pine))}
+.contact-body{padding-block:clamp(32px,5vw,64px);padding-left:clamp(28px,5vw,64px);padding-right:max(20px,calc((100vw - 1160px) / 2 + 20px));justify-content:center;display:flex;flex-direction:column;gap:22px}
+.contact-body h2{font-size:clamp(2rem,4vw,2.8rem)}
+.contact-body .lead{opacity:.85;max-width:44ch;margin-top:10px}
+.c-item{display:flex;flex-direction:column;gap:4px;padding-top:18px;border-top:1px solid color-mix(in srgb,var(--on-pine) 22%,transparent)}
+.c-item .k{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;font-weight:600}
+.phone-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.phone{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.1rem);text-decoration:none;user-select:all;color:var(--on-pine)}
+.copy{font:inherit;font-size:.85rem;font-weight:600;padding:.45em .9em;border-radius:999px;border:1.5px solid currentColor;background:transparent;color:var(--on-pine);cursor:pointer}
+.c-item a.maplink{color:var(--on-pine);font-weight:600}
+.fb-link{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;background:#1877F2;color:#fff;text-decoration:none;font-weight:600;padding:.7em 1.2em;border-radius:999px;transition:transform .15s}
+.fb-link:hover{transform:translateY(-1px)}
+@media (max-width:860px){.contact-card{grid-template-columns:1fr;min-height:0}.contact-body{padding-inline:20px}.contact-photo{min-height:240px}.contact-photo::after{background:linear-gradient(to bottom,transparent 55%,var(--pine))}}
+
+footer{padding-block:32px 40px;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+footer a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;color:var(--ink)}
+footer a svg{color:#1877F2}
+
+/* About: read more (mobile only) */
+.more{display:flex;flex-direction:column;gap:18px}
+.more-btn{display:none}
+
+/* Swipe rails, dots and tab bar (mobile only) */
+.dots{display:none}
+.tabbar{display:none}
+
+@media (max-width:680px){
+  body{font-size:16px}
+  .site-header .wrap{min-height:58px}
+  .brand{font-size:1rem}
+  .brand svg{width:38px;height:38px}
+  .menu-btn,.nav{display:none!important}
+  .fb-btn{width:36px;height:36px}
+
+  .hero-inner{gap:20px}
+  .hero-lead{font-size:1rem}
+  .hero-cta .btn{flex:1;justify-content:center;padding:.8em 1em}
+  .fan{max-width:320px}
+
+  .section{padding-block:28px 44px}
+  .section-head{margin-bottom:20px;gap:8px}
+  .section-head h2,.about-grid h2{font-size:1.75rem}
+  .section-head p{font-size:.95rem}
+
+  .about-text{margin-top:16px;gap:14px;font-size:1rem}
+  .about-text .quote{font-size:1.15rem}
+  .about-text:not(.open) .more{display:none}
+  .more-btn{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:none;border:0;padding:4px 0;color:var(--accent);font:inherit;font-weight:600;cursor:pointer}
+  .more-btn svg{transition:transform .2s}
+  .about-text.open .more-btn svg{transform:rotate(180deg)}
+  .about-grid{gap:24px}
+  .duo{gap:10px}
+  .duo img:nth-child(2){margin-top:28px}
+  .features{margin-top:32px;padding-top:24px;gap:18px}
+  .feature{display:grid;grid-template-columns:34px 1fr;column-gap:14px;row-gap:2px;align-items:start}
+  .feature svg{grid-row:span 2;width:30px;height:30px}
+  .feature h3{font-size:1.1rem}
+  .feature p{font-size:.9rem}
+
+  .chooser{padding:16px;gap:12px;margin-bottom:16px}
+  .chips{display:none}
+  .select-wrap{display:block}
+  .chooser-result{font-size:.92rem;min-height:0}
+
+  .rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding:8px 20px 12px;scroll-padding-inline:20px;scrollbar-width:none;position:relative}
+  .rail::-webkit-scrollbar{display:none}
+  .rail>*{flex:0 0 80%;scroll-snap-align:start}
+  .price.is-match{transform:none}
+  .camp-grid.rail>*{flex-basis:72%}
+  .camp{min-height:280px}
+  .dots{display:flex;justify-content:center;gap:6px;margin-top:4px}
+  .dots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:var(--line);cursor:pointer;transition:width .25s,background .25s}
+  .dots button[aria-current="true"]{width:22px;background:var(--accent)}
+  .notice{margin-top:16px;padding:14px 16px;font-size:.92rem}
+  .camp-cta{margin-top:16px}
+  .camp-cta span{font-size:.9rem}
+
+  .masonry{columns:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .shot{margin:0;aspect-ratio:1;border-radius:8px}
+  .shot img{height:100%;object-fit:cover}
+  .shot:nth-child(n+10){display:none}
+  .shot:nth-child(9)::after{content:attr(data-more);position:absolute;inset:0;display:grid;place-items:center;background:rgba(10,20,15,.55);color:#fff;font-weight:700;font-size:1.2rem}
+
+  .contact-photo{min-height:170px}
+  .contact-body{gap:18px;padding-block:28px 36px}
+  .contact-body h2{font-size:1.75rem}
+
+  footer{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0 5px;border-radius:12px;font-size:.68rem;font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s,background .2s}
+  .tabbar svg{width:22px;height:22px}
+  .tabbar a.active{color:var(--accent);background:var(--accent-soft)}
+  .tabbar a.call{background:var(--accent);color:var(--accent-ink)}
+  .tabbar a.call.active{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent-ink) 55%,transparent)}
+  .tabbar a{-webkit-tap-highlight-color:transparent}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="shoe" viewBox="0 0 32 32">
+      <path d="M8 4v11a8 8 0 0 0 16 0V4" fill="none" stroke="currentColor" stroke-width="5"/>
+      <g fill="var(--bg)"><circle cx="8" cy="8" r="1"/><circle cx="8" cy="13" r="1"/><circle cx="24" cy="8" r="1"/><circle cx="24" cy="13" r="1"/><circle cx="11" cy="20" r="1"/><circle cx="21" cy="20" r="1"/></g>
+    </symbol>
+    <symbol id="fb" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/>
+    </symbol>
+    <symbol id="logo" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="31" fill="#1F4536"/>
+      <circle cx="32" cy="32" r="28" fill="none" stroke="#E0A14F" stroke-width="1.1"/>
+      <clipPath id="logo-clip"><circle cx="32" cy="32" r="28"/></clipPath>
+      <g clip-path="url(#logo-clip)">
+        <path fill="#F1F3EC" d="M31 10 L34 16 L37 9 L39 17 C45 21 49 29 50 38 L50 56 L33 56 C33 50 31 45 29 42 C28 40 25 40 23 42 C21 44 19 46 16 46 C13 46 10 44 10.5 41 C11 38 13 36 15 34 C19 29 24 22 27 17 Z"/>
+        <path fill="#E0A14F" d="M39 17 Q42 13.5 46 15 Q43 17 43.5 19.5 Q47.5 18.5 50 21 Q46.5 22.5 46.5 25 Q50.5 25 53 28.5 Q49 29.5 48.5 31.5 Q52 32.5 53 36 Q50 35.5 50 38 C49 29 45 21 39 17 Z"/>
+        <circle cx="25.5" cy="25" r="1.4" fill="#1F4536"/>
+        <path d="M29.5 31 C27 35 26 38 24 41" stroke="#1F4536" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <circle cx="13.3" cy="39.6" r=".85" fill="#1F4536"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>
+      <span>Pilisborosjenői<br>Lovasiskola</span>
+    </a>
+    <div class="head-actions">
+      <nav class="nav" id="nav">
+        <a href="#rolunk">Rólunk</a>
+        <a href="#arak">Árak</a>
+        <a href="#taborok">Táborok</a>
+        <a href="#galeria">Galéria</a>
+        <a href="#kapcsolat">Kapcsolat</a>
+        <a class="btn btn-primary" href="#kapcsolat">Időpontot kérek</a>
+      </nav>
+      <a class="fb-btn" href="https://www.facebook.com/share/19KiNbmKeY/" target="_blank" rel="noopener" aria-label="Facebook-oldalunk"><svg><use href="#fb"/></svg></a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menü</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Pilisborosjenő · Rozália-kápolna</p>
+        <h1 id="hero-title">Lovasoktatás&nbsp;és tereplovaglás <em>a&nbsp;Pilis lábánál</em></h1>
+        <p class="hero-lead">Nálunk a gyerekek játékosan, biztonságos környezetben barátkozhatnak meg a lovakkal, a felnőttek pedig az erdők és mezők között élhetik át a lovaglás szabadságát.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#arak">Árak és alkalmak</a>
+          <a class="btn btn-ghost num" href="#kapcsolat">06 31 781 5152</a>
+        </div>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <figure class="card-photo cp1"><img src="img/m/13.jpg" alt="" width="675" height="900"></figure>
+        <figure class="card-photo cp3"><img src="img/m/16.jpg" alt="" width="675" height="900"></figure>
+        <figure class="card-photo cp2"><img src="img/m/07.jpg" alt="" width="675" height="900"></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="facts">
+    <ul class="wrap">
+      <li><b>3 éves kortól</b><span>pónisétával a legkisebbeknek</span></li>
+      <li><b>Kezdőtől haladóig</b><span>futószár, egyéni edzés, terep</span></li>
+      <li><b>Erdők és mezők</b><span>terep közvetlenül az iskola mellett</span></li>
+    </ul>
+  </div>
+
+  <section class="section" id="rolunk" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="about-grid">
+        <div>
+          <p class="eyebrow">Rólunk</p>
+          <h2 id="about-title">Üdvözlünk a Pilisborosjenői Lovasiskolában!</h2>
+          <div class="about-text" id="about-text">
+            <p class="quote">Akár első lovaglásról, akár rendszeres edzésről van szó, nálunk mindig élmény vár.</p>
+            <div class="more" id="about-more">
+            <p>Nálunk a gyerekek játékosan, biztonságos környezetben barátkozhatnak meg a lovakkal, miközben megtanulják a lovaglás alapjait és átélhetik a természet közelségét. Tapasztalt oktatóink gondoskodnak róla, hogy mindenki, legyen kisgyerek, tinédzser vagy felnőtt, élményként vigye haza a lovaglást.</p>
+            <p>A környező erdők és mezők különleges terepet kínálnak, ahol nemcsak a lovaglást lehet gyakorolni, hanem igazi kalandban is részesül az ember. Gyere, próbáld ki, és éld át te is a lovak csodáját!</p>
+            </div>
+            <button class="more-btn" id="more-btn" type="button" aria-expanded="false" aria-controls="about-more"><span>Tovább olvasom</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+        </div>
+        <div class="duo">
+          <img src="img/m/10.jpg" alt="Ismerkedés egy csikóval a legelőn" width="675" height="900" loading="lazy">
+          <img src="img/m/09.jpg" alt="Lóápolás: fiatal lovas a lova mellett" width="675" height="900" loading="lazy">
+        </div>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="11" r="5"/><path d="M8 32c0-6 4.5-10 10-10s10 4 10 10"/></svg>
+          <h3>Játékosan, biztonságban</h3>
+          <p>A gyerekek a saját tempójukban ismerkednek a lovakkal, mindig oktatói felügyelet mellett.</p>
+        </div>
+        <div class="feature">
+          <svg width="36" height="36" aria-hidden="true"><use href="#shoe"/></svg>
+          <h3>Tapasztalt oktatók</h3>
+          <p>Kisgyerek, tinédzser vagy felnőtt: mindenki a tudásszintjéhez illő oktatást kap.</p>
+        </div>
+        <div class="feature">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 30 L14 12 L20 22 L25 15 L32 30 Z"/><circle cx="27" cy="7" r="3"/></svg>
+          <h3>Igazi terep</h3>
+          <p>A Pilis erdei és mezői közvetlenül az iskola mellett kezdődnek.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section prices" id="arak" aria-labelledby="prices-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Árlista · 2026</p>
+        <h2 id="prices-title">Alkalmak és árak</h2>
+        <p>Minden alkalomra előre egyeztetett időpontban várunk. Nem tudod, melyiket válaszd? Segítünk.</p>
+      </div>
+
+      <div class="chooser" role="group" aria-labelledby="chooser-label">
+        <span class="chooser-label" id="chooser-label">Kinek keresünk alkalmat?</span>
+        <div class="chips">
+          <button class="chip" type="button" data-pick="pony" aria-pressed="false">Kisgyereknek (3–6 év)</button>
+          <button class="chip" type="button" data-pick="lunge" aria-pressed="true">Most ülnék először lóra</button>
+          <button class="chip" type="button" data-pick="solo" aria-pressed="false">Már lovagolok, fejlődnék</button>
+          <button class="chip" type="button" data-pick="trail" aria-pressed="false">Kirándulnék lóháton</button>
+        </div>
+        <div class="select-wrap">
+          <select id="pick-select" aria-labelledby="chooser-label">
+            <option value="pony">Kisgyereknek (3–6 év)</option>
+            <option value="lunge" selected>Most ülnék először lóra</option>
+            <option value="solo">Már lovagolok, fejlődnék</option>
+            <option value="trail">Kirándulnék lóháton</option>
+          </select>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <p class="chooser-result" id="chooser-result" aria-live="polite"></p>
+      </div>
+
+      <div class="price-grid rail" id="price-rail">
+        <article class="price" data-id="lunge">
+          <div class="price-media">
+            <div class="clip"><img src="img/m/06.jpg" alt="Futószáras gyakorlat, az oktató tartja a lovat" width="900" height="675" loading="lazy"></div>
+            <span class="tag">Kezdőknek</span>
+            <svg class="dial" width="60" height="60" viewBox="0 0 64 64" data-min="30" aria-label="30 perc"><circle class="track" cx="32" cy="32" r="25" fill="none" stroke-width="6"/><circle class="fill" cx="32" cy="32" r="25" fill="none" stroke-width="6" stroke-linecap="round" transform="rotate(-90 32 32)"/><text x="32" y="33" text-anchor="middle">30</text><text class="unit" x="32" y="44" text-anchor="middle">PERC</text></svg>
+          </div>
+          <div class="price-body">
+            <h3>Futószáras oktatás</h3>
+            <p>Az oktató futószáron vezeti a lovat, te az ülésre és az egyensúlyra figyelhetsz.</p>
+            <div class="amount num">8 000<small>Ft</small></div>
+          </div>
+        </article>
+        <article class="price" data-id="solo">
+          <div class="price-media">
+            <div class="clip"><img src="img/m/01.jpg" alt="Felnyergelt pej ló a karámban" width="518" height="900" loading="lazy" style="object-position:center 35%"></div>
+            <span class="tag">Fejlődéshez</span>
+            <svg class="dial" width="60" height="60" viewBox="0 0 64 64" data-min="40" aria-label="40 perc"><circle class="track" cx="32" cy="32" r="25" fill="none" stroke-width="6"/><circle class="fill" cx="32" cy="32" r="25" fill="none" stroke-width="6" stroke-linecap="round" transform="rotate(-90 32 32)"/><text x="32" y="33" text-anchor="middle">40</text><text class="unit" x="32" y="44" text-anchor="middle">PERC</text></svg>
+          </div>
+          <div class="price-body">
+            <h3>Egyéni edzés</h3>
+            <p>Önálló lovaglás az oktató irányításával, a saját tempódban.</p>
+            <div class="amount num">9 000<small>Ft</small></div>
+          </div>
+        </article>
+        <article class="price" data-id="trail">
+          <div class="price-media">
+            <div class="clip"><img src="img/m/16.jpg" alt="Tereplovaglás a dombok között, a ló füle közül nézve" width="675" height="900" loading="lazy" style="object-position:center 60%"></div>
+            <span class="tag">Kaland</span>
+            <svg class="dial" width="60" height="60" viewBox="0 0 64 64" data-min="60" aria-label="60 perc"><circle class="track" cx="32" cy="32" r="25" fill="none" stroke-width="6"/><circle class="fill" cx="32" cy="32" r="25" fill="none" stroke-width="6" stroke-linecap="round" transform="rotate(-90 32 32)"/><text x="32" y="33" text-anchor="middle">60</text><text class="unit" x="32" y="44" text-anchor="middle">PERC</text></svg>
+          </div>
+          <div class="price-body">
+            <h3>Tereplovaglás</h3>
+            <p>Egy óra az erdőkben és mezőkön. Hosszabb terep egyéni egyeztetéssel.</p>
+            <div class="amount num">12 000<small>Ft</small></div>
+          </div>
+        </article>
+        <article class="price" data-id="pony">
+          <div class="price-media">
+            <div class="clip"><img src="img/m/12.jpg" alt="Póniséta a dombok alatt" width="675" height="900" loading="lazy" style="object-position:center 65%"></div>
+            <span class="tag">3 éves kortól</span>
+            <svg class="dial" width="60" height="60" viewBox="0 0 64 64" data-min="30" aria-label="30 perc"><circle class="track" cx="32" cy="32" r="25" fill="none" stroke-width="6"/><circle class="fill" cx="32" cy="32" r="25" fill="none" stroke-width="6" stroke-linecap="round" transform="rotate(-90 32 32)"/><text x="32" y="33" text-anchor="middle">30</text><text class="unit" x="32" y="44" text-anchor="middle">PERC</text></svg>
+          </div>
+          <div class="price-body">
+            <h3>Póniséta</h3>
+            <p>Vezetett séta pónin, az első ismerkedés a lovakkal a legkisebbeknek.</p>
+            <div class="amount num">8 000<small>Ft</small></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="notice">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg>
+        <p><strong>Lemondás:</strong> a foglalt időpontot legkésőbb 24 órával előtte tudjuk lemondani.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="taborok" aria-labelledby="camps-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Lovastáborok</p>
+        <h2 id="camps-title">Táborok minden iskolai szünetben</h2>
+        <p>Lovaglás, lóápolás és sok idő a szabadban, a lovak mellett.</p>
+      </div>
+      <div class="camp-grid rail">
+        <article class="camp spring"><img src="img/m/08.jpg" alt="Kanca és csikója a zöld réten" width="728" height="717" loading="lazy"><span class="season">Március–április</span><h3>Tavaszi szünet</h3></article>
+        <article class="camp summer"><img src="img/m/04.jpg" alt="Lovas a mezőn nyári bárányfelhők alatt" width="675" height="900" loading="lazy"><span class="season">Június–augusztus</span><h3>Nyári szünet</h3></article>
+        <article class="camp autumn"><img src="img/m/03.jpg" alt="Ló a fák között, ellenfényben" width="674" height="900" loading="lazy"><span class="season">Október–november</span><h3>Őszi szünet</h3></article>
+      </div>
+      <div class="camp-cta">
+        <a class="btn btn-primary" href="#kapcsolat">Érdeklődöm a táborról</a>
+        <span>A pontos időpontokat és árakat telefonon egyeztetjük.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section gallery" id="galeria" aria-labelledby="gallery-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Galéria</p>
+        <h2 id="gallery-title">Pillanatok képekben</h2>
+        <p>Éld át a lovaglás örömét. Kattints egy képre a nagyításhoz.</p>
+      </div>
+      <div class="masonry" id="masonry"></div>
+    </div>
+  </section>
+
+  <section id="kapcsolat" aria-labelledby="contact-title">
+      <div class="contact-card">
+        <div class="contact-photo"><img src="img/m/02.jpg" alt="Kanca és csikója naplementében a legelőn" width="675" height="900" loading="lazy"></div>
+        <div class="contact-body">
+          <div>
+            <p class="eyebrow" style="color:inherit;opacity:.75">Kapcsolat</p>
+            <h2 id="contact-title" style="margin-top:12px">Foglalj időpontot telefonon</h2>
+            <p class="lead">Hívj, és egyeztetünk egy alkalmat. Szívesen válaszolunk a táborokkal és a hosszabb terepekkel kapcsolatos kérdésekre is.</p>
+          </div>
+          <div class="c-item">
+            <span class="k">Telefon · Tarjányi Domonkos</span>
+            <div class="phone-row">
+              <a class="phone num" id="phone" href="tel:+36317815152">06 31 781 5152</a>
+              <button class="copy" type="button" id="copy-btn">Másolás</button>
+            </div>
+            <span style="font-size:.85rem;opacity:.75">Figyelem: 31-es előhívó!</span>
+          </div>
+          <div class="c-item">
+            <span class="k">Helyszín</span>
+            <span>Pilisborosjenő, Rozália-kápolna</span>
+            <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=R%C3%B3z%C3%A1lia%20k%C3%A1polna%20Pilisborosjen%C5%91" target="_blank" rel="noopener">Megnyitás a térképen ↗</a>
+          </div>
+          <div class="c-item">
+            <span class="k">Kövess minket</span>
+            <a class="fb-link" href="https://www.facebook.com/share/19KiNbmKeY/" target="_blank" rel="noopener"><svg class="fb-ico" aria-hidden="true"><use href="#fb"/></svg>Facebook-oldalunk</a>
+          </div>
+        </div>
+      </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Pilisborosjenői Lovasiskola · Lovasoktatás, tereplovaglás, póniséta, táborok</span>
+    <a href="https://www.facebook.com/share/19KiNbmKeY/" target="_blank" rel="noopener"><svg class="fb-ico" aria-hidden="true"><use href="#fb"/></svg>Facebook</a>
+  </div>
+</footer>
+
+<nav class="tabbar" id="tabbar" aria-label="Gyors navigáció">
+  <a href="#rolunk" data-sec="rolunk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Rólunk</a>
+  <a href="#arak" data-sec="arak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12.6 12.6 20a2 2 0 0 1-2.8 0L3 13.2V4h9.2l7.8 7.8a2 2 0 0 1 0 .8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg>Árak</a>
+  <a href="#taborok" data-sec="taborok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 12l-3.5 8M12 12l3.5 8"/></svg>Táborok</a>
+  <a href="#galeria" data-sec="galeria"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 9"/></svg>Galéria</a>
+  <a href="#kapcsolat" data-sec="kapcsolat" class="call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Foglalás</a>
+</nav>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galéria nagyítás" hidden>
+  <button class="lb-btn lb-close" id="lb-close" type="button" aria-label="Bezárás">✕</button>
+  <button class="lb-btn lb-prev" id="lb-prev" type="button" aria-label="Előző kép">‹</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Következő kép">›</button>
+</div>
+
+<script>
+(function(){
+  // Mobile menu
+  var btn=document.getElementById('menu-btn'), nav=document.getElementById('nav');
+  btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');btn.setAttribute('aria-expanded','false')}});
+
+  // Duration dials
+  var C=2*Math.PI*25;
+  document.querySelectorAll('.dial').forEach(function(d){
+    var f=d.querySelector('.fill'), m=+d.dataset.min;
+    f.style.strokeDasharray=C; f.style.strokeDashoffset=C*(1-m/60);
+  });
+
+  // Chooser
+  var info={
+    pony:'<strong>Póniséta, 30 perc.</strong> A legkisebbek pónin, vezetve ismerkednek a lovakkal. 3 éves kortól ajánljuk.',
+    lunge:'<strong>Futószáras oktatás, 30 perc.</strong> Az oktató tartja a lovat, így az első alkalmakon csak az egyensúlyra és az ülésre kell figyelned.',
+    solo:'<strong>Egyéni edzés, 40 perc.</strong> Önállóan lovagolsz, az oktató pedig végig segít a fejlődésben.',
+    trail:'<strong>Tereplovaglás, 1 óra.</strong> Erdők és mezők Pilisborosjenő körül. Hosszabb túrát egyéni egyeztetéssel szervezünk.'
+  };
+  var chips=document.querySelectorAll('.chip'), out=document.getElementById('chooser-result'), priceRail=document.getElementById('price-rail');
+  function pick(id,scroll){
+    chips.forEach(function(c){c.setAttribute('aria-pressed',c.dataset.pick===id)});
+    document.querySelectorAll('.price').forEach(function(p){
+      var on=p.dataset.id===id; p.classList.toggle('is-match',on);
+      // On phones the cards sit in a swipe rail: bring the match into view
+      if(on&&scroll&&priceRail.scrollWidth>priceRail.clientWidth+4) priceRail.scrollTo({left:p.offsetLeft-20,behavior:'smooth'});
+    });
+    out.innerHTML=info[id];
+    sel.value=id;
+  }
+  var sel=document.getElementById('pick-select');
+  sel.addEventListener('change',function(){pick(sel.value,true)});
+  chips.forEach(function(c){c.addEventListener('click',function(){pick(c.dataset.pick,true)})});
+  pick('lunge');
+
+  // Swipe rails get dot indicators (only visible on phones)
+  document.querySelectorAll('.rail').forEach(function(rail){
+    var items=[].slice.call(rail.children), dots=document.createElement('div');
+    dots.className='dots'; dots.setAttribute('aria-hidden','true');
+    items.forEach(function(it,i){
+      var d=document.createElement('button'); d.type='button'; d.tabIndex=-1;
+      d.addEventListener('click',function(){rail.scrollTo({left:it.offsetLeft-20,behavior:'smooth'})});
+      dots.appendChild(d);
+    });
+    rail.after(dots);
+    function sync(){
+      var best=0,dist=1e9;
+      items.forEach(function(it,i){var dd=Math.abs(it.offsetLeft-20-rail.scrollLeft);if(dd<dist){dist=dd;best=i}});
+      if(rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-4) best=items.length-1;
+      [].forEach.call(dots.children,function(d,i){d.setAttribute('aria-current',i===best)});
+    }
+    rail.addEventListener('scroll',function(){requestAnimationFrame(sync)},{passive:true});
+    sync();
+  });
+
+  // About: read more (phones)
+  var moreBtn=document.getElementById('more-btn'), aboutText=document.getElementById('about-text');
+  moreBtn.addEventListener('click',function(){
+    var o=aboutText.classList.toggle('open');
+    moreBtn.setAttribute('aria-expanded',o);
+    moreBtn.querySelector('span').textContent=o?'Kevesebb':'Tovább olvasom';
+  });
+
+  // Gallery + lightbox
+  var photos=[
+    ['07',675,900,'Lovaglás a pipacsmezőn'],
+    ['05',900,600,'Két tarka ló a karám kerítésénél'],
+    ['16',675,900,'Terep a lovak füle közül nézve'],
+    ['08',728,717,'Kanca és csikó a zöld réten'],
+    ['06',900,675,'Futószáras gyakorlat'],
+    ['13',675,900,'Kisfiú és a lovak a legelőn'],
+    ['02',675,900,'Naplemente a legelőn'],
+    ['10',675,900,'Ismerkedés a csikóval'],
+    ['04',675,900,'Terepen, bárányfelhők alatt'],
+    ['15',675,900,'Kíváncsi olvasótárs'],
+    ['01',518,900,'Felnyergelve, indulás előtt'],
+    ['12',675,900,'Póniséta a dombok alatt'],
+    ['03',674,900,'Ellenfényben a fák között'],
+    ['09',675,900,'Lóápolás'],
+    ['11',675,900,'Naplemente a mező felett']
+  ];
+  var grid=document.getElementById('masonry');
+  photos.forEach(function(p,i){
+    var b=document.createElement('button');
+    b.className='shot'; b.type='button'; b.setAttribute('aria-label','Nagyítás: '+p[3]);
+    b.innerHTML='<img src="img/m/'+p[0]+'.jpg" alt="'+p[3]+'" width="'+p[1]+'" height="'+p[2]+'" loading="lazy">';
+    if(i===8) b.setAttribute('data-more','+'+(photos.length-9)+' kép');
+    b.addEventListener('click',function(){open(i)});
+    grid.appendChild(b);
+  });
+  var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lb-img'), lbCap=document.getElementById('lb-cap'), cur=0, lastFocus=null;
+  function show(i){
+    cur=(i+photos.length)%photos.length; var p=photos[cur];
+    lbImg.src='img/l/'+p[0]+'.jpg'; lbImg.alt=p[3];
+    lbCap.textContent=(cur+1)+' / '+photos.length;
+  }
+  function open(i){lastFocus=document.activeElement;show(i);lb.hidden=false;document.body.style.overflow='hidden';document.getElementById('lb-close').focus()}
+  function close(){lb.hidden=true;document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+  document.getElementById('lb-close').addEventListener('click',close);
+  document.getElementById('lb-prev').addEventListener('click',function(){show(cur-1)});
+  document.getElementById('lb-next').addEventListener('click',function(){show(cur+1)});
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.tagName==='FIGURE')close()});
+  document.addEventListener('keydown',function(e){
+    if(lb.hidden)return;
+    if(e.key==='Escape')close(); else if(e.key==='ArrowLeft')show(cur-1); else if(e.key==='ArrowRight')show(cur+1);
+  });
+  var sx=null;
+  lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)show(cur+(dx<0?1:-1));sx=null});
+
+  // Copy phone
+  var cb=document.getElementById('copy-btn'), ph=document.getElementById('phone');
+  cb.addEventListener('click',function(){
+    function done(t){cb.textContent=t;setTimeout(function(){cb.textContent='Másolás'},1800)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(ph);var s=getSelection();s.removeAllRanges();s.addRange(r);done('Kijelölve')}
+    try{navigator.clipboard.writeText('06 31 781 5152').then(function(){done('Másolva')},fallback)}catch(e){fallback()}
+  });
+
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  // Logo: back to the very top of the page
+  document.querySelector('.brand').addEventListener('click',function(e){
+    e.preventDefault(); nav.classList.remove('open'); btn.setAttribute('aria-expanded','false');
+    var smooth=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0,behavior:smooth?'smooth':'auto'});
+  });
+
+  // Anchor jumps land exactly below the sticky header
+  var head=document.querySelector('.site-header');
+  function setHead(){document.documentElement.style.setProperty('--head-h',head.offsetHeight+'px')}
+  setHead(); window.addEventListener('resize',setHead);
+
+  // Tab bar (phones): highlight the section on screen
+  var tabs=[].slice.call(document.querySelectorAll('#tabbar a'));
+  var secs=['rolunk','arak','taborok','galeria','kapcsolat'].map(function(id){return document.getElementById(id)});
+  var locked=null; // section chosen by a tap; holds until the user scrolls by hand
+  function setActive(id){
+    tabs.forEach(function(t){
+      var on=t.dataset.sec===id;
+      t.classList.toggle('active',on);
+      if(on) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current');
+    });
+  }
+  function compute(){
+    if(locked) return;
+    var line=head.offsetHeight+window.innerHeight*0.3, cur=null;
+    secs.forEach(function(s){if(s.getBoundingClientRect().top<=line) cur=s.id});
+    // At the very bottom the last section can never reach the line: treat it as current
+    if(cur&&window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4) cur=secs[secs.length-1].id;
+    setActive(cur);
+  }
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ticking=false;compute()});
+  },{passive:true});
+  window.addEventListener('resize',compute);
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){locked=t.dataset.sec;setActive(locked)});
+  });
+  function unlock(e){
+    if(!locked||(e.target.closest&&e.target.closest('#tabbar'))) return;
+    locked=null; compute();
+  }
+  ['touchstart','wheel','keydown'].forEach(function(ev){window.addEventListener(ev,unlock,{passive:true})});
+  document.querySelector('.brand').addEventListener('click',function(){locked='top';setActive(null)});
+  compute();
+
+})();
+</script>
+</body>
+</html>
