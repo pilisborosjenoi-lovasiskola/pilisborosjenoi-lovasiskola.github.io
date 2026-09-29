@@ -96,6 +96,11 @@ img{display:block;max-width:100%;height:auto}
 .hero-lead{margin-top:16px;font-size:clamp(1.05rem,1.6vw,1.2rem);max-width:48ch}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .hero-copy{position:relative;z-index:3}
+@media (min-width:861px){
+  /* Desktop: the hero fills the first screen, the green strip starts below it */
+  .hero{min-height:calc(100vh - var(--head-h,65px));min-height:calc(100svh - var(--head-h,65px));display:flex;align-items:center}
+  .hero-inner{width:100%}
+}
 .fan{position:relative;aspect-ratio:1/.86;width:100%}
 .card-photo{position:absolute;width:54%;aspect-ratio:3/4;margin:0;padding:7px;background:var(--surface);border-radius:8px;box-shadow:var(--shadow);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 .card-photo img{width:100%;height:100%;object-fit:cover;border-radius:4px}
