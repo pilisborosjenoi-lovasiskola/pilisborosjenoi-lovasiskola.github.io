@@ -107,8 +107,10 @@ img{display:block;max-width:100%;height:auto}
 .site-header.on-hero .menu-btn{color:#fff;border-color:rgba(255,255,255,.6)}
 
 /* Hero: full-bleed background video, copy on top; fills the first screen, running up under the floating header */
-.hero{position:relative;overflow:hidden;overflow:clip;isolation:isolate;background:#1D2F24 url(video/hero-poster.jpg) 50% 58%/cover no-repeat;color:#fff;display:flex;align-items:center;margin-top:calc(-1 * var(--head-h,65px));padding-top:var(--head-h,65px);min-height:100vh;min-height:100svh;min-height:var(--hero-h,100svh)}
-.hero-video{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 58%;transform:translateZ(0)}
+.hero{position:relative;overflow:hidden;overflow:clip;isolation:isolate;background:#1D2F24;color:#fff;display:flex;align-items:center;margin-top:calc(-1 * var(--head-h,65px));padding-top:var(--head-h,65px);min-height:100vh;min-height:100svh;min-height:var(--hero-h,100svh)}
+/* The poster is also the element's own background, framed exactly like the video: some iOS in-app
+   browsers never paint the poster attribute */
+.hero-video{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 58%;background:#1D2F24 url(video/hero-poster.jpg) 50% 58%/cover no-repeat;transform:translateZ(0)}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,18,12,.5) 0,transparent 160px),linear-gradient(90deg,rgba(8,18,12,.72) 0%,rgba(8,18,12,.45) 45%,rgba(8,18,12,.08) 80%),linear-gradient(0deg,rgba(8,18,12,.35) 0%,transparent 35%)}
 .hero-inner{width:100%;padding-block:clamp(32px,5vw,64px)}
 .hero-copy{max-width:640px;text-shadow:0 1px 18px rgba(0,0,0,.35)}
@@ -119,8 +121,9 @@ img{display:block;max-width:100%;height:auto}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;text-shadow:none}
 .hero .btn-ghost{color:#fff;background:rgba(8,18,12,.28)}
 @media (max-width:860px){
-  .hero{align-items:flex-end;background-position:50% 50%}
-  .hero-video{object-position:50% 50%}
+  .hero{align-items:flex-end}
+  /* Taller than the hero and anchored to its bottom: lifts the rider above the copy */
+  .hero-video{top:auto;height:125%;object-position:50% 50%;background-position:50% 50%}
   .hero::before{background:linear-gradient(180deg,rgba(8,18,12,.5) 0,transparent 140px),linear-gradient(0deg,rgba(8,18,12,.82) 0%,rgba(8,18,12,.5) 45%,rgba(8,18,12,.1) 75%)}
   .hero h1{font-size:min(3rem,calc((100vw - 40px) / 11.5))}
 }
