@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1F4536">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pilisborosjenői Lovasiskola">
 <meta property="og:description" content="Lovasoktatás, tereplovaglás, póniséta és lovastáborok Pilisborosjenőn, a Rozália-kápolnánál.">
@@ -49,7 +50,7 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overscroll-behavior-y:none}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.01em}
@@ -67,10 +68,20 @@ img{display:block;max-width:100%;height:auto}
 .fb-ico{width:1.15em;height:1.15em;flex:none}
 
 /* Header */
-.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 96%,transparent);border-bottom:1px solid var(--line)}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-size:1.12rem;line-height:1.1}
-.brand svg{flex:none;color:var(--accent)}
+.brand .logo{flex:none;width:52px;height:52px}
+/* Line-art logo: green on the light header, white on the hero video and in dark mode */
+.brand .logo-light{display:none}
+.site-header.on-hero .logo-ink{display:none}
+.site-header.on-hero .logo-light{display:block}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .brand .logo-ink{display:none}
+  :root:not([data-theme="light"]) .brand .logo-light{display:block}
+}
+:root[data-theme="dark"] .brand .logo-ink{display:none}
+:root[data-theme="dark"] .brand .logo-light{display:block}
 .head-actions{display:flex;align-items:center;gap:10px}
 .nav{display:flex;align-items:center;gap:22px}
 .nav a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--muted)}
@@ -87,47 +98,31 @@ img{display:block;max-width:100%;height:auto}
   .nav a{padding:12px 0;border-bottom:1px solid var(--line);font-size:1.05rem}
   .nav .btn{margin-top:12px;justify-content:center;border-bottom:0}
 }
+/* At the top of the page the header floats on the hero video; it turns solid once the page scrolls */
+.site-header{transition:background-color .3s ease, border-color .3s ease}
+.site-header.on-hero{background:transparent;border-bottom-color:transparent;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+.site-header.on-hero .nav a{color:rgba(255,255,255,.9)}
+.site-header.on-hero .nav a:hover{color:#fff}
+.site-header.on-hero .nav .btn{color:var(--accent-ink);text-shadow:none}
+.site-header.on-hero .menu-btn{color:#fff;border-color:rgba(255,255,255,.6)}
 
-/* Hero */
-.hero{background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 100%);overflow:hidden;position:relative}
-.hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;padding-block:clamp(16px,4vh,40px) clamp(36px,6vh,64px)}
+/* Hero: full-bleed background video, copy on top; fills the first screen, running up under the floating header */
+.hero{position:relative;overflow:hidden;overflow:clip;isolation:isolate;background:#1D2F24 url(video/hero-poster.jpg) 50% 58%/cover no-repeat;color:#fff;display:flex;align-items:center;margin-top:calc(-1 * var(--head-h,65px));padding-top:var(--head-h,65px);min-height:100vh;min-height:100svh;min-height:var(--hero-h,100svh)}
+.hero-video{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 58%;transform:translateZ(0)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,18,12,.5) 0,transparent 160px),linear-gradient(90deg,rgba(8,18,12,.72) 0%,rgba(8,18,12,.45) 45%,rgba(8,18,12,.08) 80%),linear-gradient(0deg,rgba(8,18,12,.35) 0%,transparent 35%)}
+.hero-inner{width:100%;padding-block:clamp(32px,5vw,64px)}
+.hero-copy{max-width:640px;text-shadow:0 1px 18px rgba(0,0,0,.35)}
+.hero .eyebrow{color:#F5C77E}
 .hero h1{font-size:clamp(1.8rem,4.9vw,3.6rem);margin-top:10px}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero-lead{margin-top:16px;font-size:clamp(1.05rem,1.6vw,1.2rem);max-width:48ch}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-.hero-copy{position:relative;z-index:3}
-@media (min-width:861px){
-  /* Desktop: the hero fills the first screen, the green strip starts below it */
-  .hero{min-height:calc(100vh - var(--head-h,65px));min-height:calc(100svh - var(--head-h,65px));display:flex;align-items:center}
-  .hero-inner{width:100%}
-}
-.fan{position:relative;aspect-ratio:1/.86;width:100%}
-.card-photo{position:absolute;width:54%;aspect-ratio:3/4;margin:0;padding:7px;background:var(--surface);border-radius:8px;box-shadow:var(--shadow);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
-.card-photo img{width:100%;height:100%;object-fit:cover;border-radius:4px}
-.cp1{left:2%;top:10%;transform:rotate(-8deg)}
-.cp2{left:23%;top:2%;transform:rotate(-1deg);z-index:2}
-.cp3{right:2%;top:8%;transform:rotate(7deg)}
-@media (hover:hover){
-  .fan:hover .cp1{transform:translate(-22%,4%) rotate(-13deg)}
-  .fan:hover .cp3{transform:translate(22%,4%) rotate(12deg)}
-  .fan:hover .cp2{transform:rotate(0) translateY(-4%) scale(.9)}
-}
-@media (hover:hover) and (min-width:1100px){
-  .fan:hover .cp1{transform:translate(-34%,5%) rotate(-14deg)}
-  .fan:hover .cp3{transform:translate(34%,5%) rotate(13deg)}
-}
-@media (prefers-reduced-motion: no-preference){
-  .cp1{animation:deal1 .9s .25s cubic-bezier(.2,.7,.2,1) backwards}
-  .cp2{animation:deal2 .9s .1s cubic-bezier(.2,.7,.2,1) backwards}
-  .cp3{animation:deal3 .9s .4s cubic-bezier(.2,.7,.2,1) backwards}
-  @keyframes deal1{from{transform:translate(40%,30px) rotate(0)}}
-  @keyframes deal2{from{transform:translateY(40px) rotate(0)}}
-  @keyframes deal3{from{transform:translate(-40%,30px) rotate(0)}}
-}
+.hero h1 em{font-style:normal;color:#F5C77E}
+.hero-lead{margin-top:16px;font-size:clamp(1.05rem,1.6vw,1.2rem);max-width:48ch;color:rgba(255,255,255,.92)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;text-shadow:none}
+.hero .btn-ghost{color:#fff;background:rgba(8,18,12,.28)}
 @media (max-width:860px){
-  .hero-inner{grid-template-columns:1fr;gap:28px}
+  .hero{align-items:flex-end;background-position:50% 50%}
+  .hero-video{object-position:50% 50%}
+  .hero::before{background:linear-gradient(180deg,rgba(8,18,12,.5) 0,transparent 140px),linear-gradient(0deg,rgba(8,18,12,.82) 0%,rgba(8,18,12,.5) 45%,rgba(8,18,12,.1) 75%)}
   .hero h1{font-size:min(3rem,calc((100vw - 40px) / 11.5))}
-  .fan{max-width:480px;justify-self:center}
 }
 
 /* Facts strip */
@@ -197,8 +192,10 @@ section{scroll-margin-top:var(--head-h,65px)}
 .price .amount{font-family:var(--display);font-size:1.9rem;color:var(--ink);line-height:1;margin-top:6px}
 .price .amount small{font-family:var(--body);font-size:.9rem;color:var(--muted);margin-left:4px}
 .tag{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.35em .75em;border-radius:6px;background:var(--surface);color:var(--accent)}
-.notice{display:flex;gap:14px;align-items:flex-start;margin-top:24px;padding:18px 20px;border-radius:var(--radius);background:var(--surface);border:1px dashed var(--line)}
-.notice svg{flex:none;color:var(--accent);margin-top:2px}
+.notice{display:flex;gap:14px;align-items:flex-start;margin-top:24px;padding:18px 20px;border-radius:var(--radius);background:var(--accent-soft);border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);border-left:6px solid var(--accent)}
+.notice svg{flex:none;color:var(--accent);margin-top:1px}
+.notice-title{font-family:var(--display);font-size:1.15rem;line-height:1.2;color:var(--accent);margin-bottom:4px}
+.notice strong{color:var(--accent)}
 
 /* Camps */
 .camp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -237,10 +234,10 @@ section{scroll-margin-top:var(--head-h,65px)}
 @media (max-width:600px){.lightbox{grid-template-columns:1fr}.lb-prev,.lb-next{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px))}.lb-prev{left:calc(50% - 60px)}.lb-next{left:calc(50% + 12px)}.lightbox figure{padding-bottom:64px}.lightbox img{max-height:calc(100vh - 190px);max-height:calc(100dvh - 190px)}}
 
 /* Contact */
-.contact-card{display:grid;grid-template-columns:1fr 1fr;min-height:clamp(420px,42vw,560px);overflow:hidden;background:var(--pine);color:var(--on-pine)}
+.contact-card{display:grid;grid-template-columns:42% 1fr;min-height:clamp(420px,42vw,560px);overflow:hidden;background:var(--pine);color:var(--on-pine)}
 .contact-photo{position:relative;min-height:320px}
 .contact-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.contact-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,transparent 55%,var(--pine))}
+.contact-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,transparent 78%,var(--pine))}
 .contact-body{padding-block:clamp(32px,5vw,64px);padding-left:clamp(28px,5vw,64px);padding-right:max(20px,calc((100vw - 1160px) / 2 + 20px));justify-content:center;display:flex;flex-direction:column;gap:22px}
 .contact-body h2{font-size:clamp(2rem,4vw,2.8rem)}
 .contact-body .lead{opacity:.85;max-width:44ch;margin-top:10px}
@@ -252,12 +249,19 @@ section{scroll-margin-top:var(--head-h,65px)}
 .c-item a.maplink{color:var(--on-pine);font-weight:600}
 .fb-link{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;background:#1877F2;color:#fff;text-decoration:none;font-weight:600;padding:.7em 1.2em;border-radius:999px;transition:transform .15s}
 .fb-link:hover{transform:translateY(-1px)}
-@media (max-width:860px){.contact-card{grid-template-columns:1fr;min-height:0}.contact-body{padding-inline:20px}.contact-photo{min-height:240px}.contact-photo::after{background:linear-gradient(to bottom,transparent 55%,var(--pine))}}
+@media (max-width:680px){
+  .contact-card{grid-template-columns:1fr;min-height:0}
+  /* Photo on top; the heading runs up onto its darker lower part, which fades into the green */
+  .contact-photo{min-height:0;width:100%;aspect-ratio:1/1;max-height:520px}
+  .contact-photo img{object-position:50% 25%}
+  .contact-photo::after{background:linear-gradient(to bottom,transparent 30%,color-mix(in srgb,var(--pine) 72%,transparent) 62%,var(--pine) 92%)}
+  .contact-body{position:relative;z-index:1;margin-top:-190px;padding-inline:20px;text-shadow:0 1px 14px rgba(0,0,0,.45)}
+  /* A jump to the contact section skips the top of the sky so the phone number lands in view */
+  #kapcsolat{scroll-margin-top:calc(var(--head-h,65px) - 70px)}
+}
 
-footer{padding-block:32px 40px;color:var(--muted);font-size:.9rem}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
-footer a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;color:var(--ink)}
-footer a svg{color:#1877F2}
+/* Fine print sits at the bottom of the green contact panel, which ends the page */
+.fineprint{padding-top:8px;font-size:.82rem;opacity:.6}
 
 /* About: read more (mobile only) */
 .more{display:flex;flex-direction:column;gap:18px}
@@ -271,14 +275,22 @@ footer a svg{color:#1877F2}
   body{font-size:16px}
   .site-header .wrap{min-height:58px}
   .brand{font-size:1rem}
-  .brand svg{width:38px;height:38px}
+  .brand .logo{width:44px;height:44px}
   .menu-btn,.nav{display:none!important}
   .fb-btn{width:36px;height:36px}
 
-  .hero-inner{gap:20px}
-  .hero-lead{font-size:1rem}
-  .hero-cta .btn{flex:1;justify-content:center;padding:.8em 1em}
-  .fan{max-width:320px}
+  /* Phones: keep the video in view, only title + one button on it.
+     The lead repeats in "Rólunk" and the tab bar already has the call button. */
+  .hero-inner{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  /* If the hero ends up taller than the visible screen (browser toolbars came back), the copy still
+     sits just above the tab bar instead of sliding under it. Needs overflow:clip on .hero, not hidden. */
+  .hero-inner{position:sticky;bottom:0}
+  .hero::before{background:linear-gradient(180deg,rgba(8,18,12,.45) 0,transparent 120px),linear-gradient(0deg,rgba(8,18,12,.78) 0%,rgba(8,18,12,.35) 28%,transparent 50%)}
+  .hero .eyebrow{font-size:.7rem}
+  .hero h1{margin-top:6px}
+  .hero-lead,.hero-cta .btn-ghost{display:none}
+  .hero-cta{margin-top:18px}
+  .hero-cta .btn{padding:.75em 1.4em}
 
   .section{padding-block:28px 44px}
   .section-head{margin-bottom:20px;gap:8px}
@@ -324,20 +336,20 @@ footer a svg{color:#1877F2}
   .shot:nth-child(n+10){display:none}
   .shot:nth-child(9)::after{content:attr(data-more);position:absolute;inset:0;display:grid;place-items:center;background:rgba(10,20,15,.55);color:#fff;font-weight:700;font-size:1.2rem}
 
-  .contact-photo{min-height:170px}
-  .contact-body{gap:18px;padding-block:28px 36px}
+  .contact-body{gap:16px;padding-block:20px calc(96px + env(safe-area-inset-bottom,0px))}
   .contact-body h2{font-size:1.75rem}
 
-  footer{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
-  footer .wrap{flex-direction:column;align-items:flex-start}
-
-  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--surface) 97%,transparent);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
   .tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0 5px;border-radius:12px;font-size:.68rem;font-weight:600;color:var(--muted);text-decoration:none;transition:color .2s,background .2s}
   .tabbar svg{width:22px;height:22px}
   .tabbar a.active{color:var(--accent);background:var(--accent-soft)}
   .tabbar a.call{background:var(--accent);color:var(--accent-ink)}
   .tabbar a.call.active{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent-ink) 55%,transparent)}
   .tabbar a{-webkit-tap-highlight-color:transparent}
+  /* While the hero video is behind it, the tab bar floats on the video like the header does */
+  .tabbar{transition:background-color .3s ease, border-color .3s ease}
+  .tabbar.on-hero{background:transparent;border-top-color:transparent}
+  .tabbar.on-hero a:not(.call){color:rgba(255,255,255,.92);text-shadow:0 1px 10px rgba(0,0,0,.45)}
 }
 </style>
 </head>
@@ -352,25 +364,14 @@ footer a svg{color:#1877F2}
     <symbol id="fb" viewBox="0 0 24 24">
       <path fill="currentColor" d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/>
     </symbol>
-    <symbol id="logo" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="31" fill="#1F4536"/>
-      <circle cx="32" cy="32" r="28" fill="none" stroke="#E0A14F" stroke-width="1.1"/>
-      <clipPath id="logo-clip"><circle cx="32" cy="32" r="28"/></clipPath>
-      <g clip-path="url(#logo-clip)">
-        <path fill="#F1F3EC" d="M31 10 L34 16 L37 9 L39 17 C45 21 49 29 50 38 L50 56 L33 56 C33 50 31 45 29 42 C28 40 25 40 23 42 C21 44 19 46 16 46 C13 46 10 44 10.5 41 C11 38 13 36 15 34 C19 29 24 22 27 17 Z"/>
-        <path fill="#E0A14F" d="M39 17 Q42 13.5 46 15 Q43 17 43.5 19.5 Q47.5 18.5 50 21 Q46.5 22.5 46.5 25 Q50.5 25 53 28.5 Q49 29.5 48.5 31.5 Q52 32.5 53 36 Q50 35.5 50 38 C49 29 45 21 39 17 Z"/>
-        <circle cx="25.5" cy="25" r="1.4" fill="#1F4536"/>
-        <path d="M29.5 31 C27 35 26 38 24 41" stroke="#1F4536" stroke-width="1" fill="none" stroke-linecap="round"/>
-        <circle cx="13.3" cy="39.6" r=".85" fill="#1F4536"/>
-      </g>
-    </symbol>
   </defs>
 </svg>
 
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="#top">
-      <svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>
+      <img class="logo logo-ink" src="img/logo.png" alt="" width="52" height="52">
+      <img class="logo logo-light" src="img/logo-feher.png" alt="" width="52" height="52">
       <span>Pilisborosjenői<br>Lovasiskola</span>
     </a>
     <div class="head-actions">
@@ -390,6 +391,10 @@ footer a svg{color:#1877F2}
 
 <main id="top">
   <section class="hero" aria-labelledby="hero-title">
+    <video class="hero-video" id="hero-video" muted loop playsinline preload="none" poster="video/hero-poster.jpg" aria-hidden="true">
+      <source src="video/hero-mobil.mp4" type="video/mp4" media="(max-width: 860px)">
+      <source src="video/hero.mp4" type="video/mp4">
+    </video>
     <div class="wrap hero-inner">
       <div class="hero-copy">
         <p class="eyebrow">Pilisborosjenő · Rozália-kápolna</p>
@@ -399,11 +404,6 @@ footer a svg{color:#1877F2}
           <a class="btn btn-primary" href="#arak">Árak és alkalmak</a>
           <a class="btn btn-ghost num" href="#kapcsolat">06 31 781 5152</a>
         </div>
-      </div>
-      <div class="fan" aria-hidden="true">
-        <figure class="card-photo cp1"><img src="img/m/13.jpg" alt="" width="675" height="900"></figure>
-        <figure class="card-photo cp3"><img src="img/m/16.jpg" alt="" width="675" height="900"></figure>
-        <figure class="card-photo cp2"><img src="img/m/07.jpg" alt="" width="675" height="900"></figure>
       </div>
     </div>
   </section>
@@ -535,9 +535,12 @@ footer a svg{color:#1877F2}
         </article>
       </div>
 
-      <div class="notice">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg>
-        <p><strong>Lemondás:</strong> a foglalt időpontot legkésőbb 24 órával előtte tudjuk lemondani.</p>
+      <div class="notice" role="note">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 2.4 17.6A2 2 0 0 0 4.1 20.6h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4.5"/><path d="M12 17h.01"/></svg>
+        <div>
+          <p class="notice-title">Lemondási szabály</p>
+          <p>A foglalt időpontot legkésőbb <strong>24 órával előtte</strong> lehet lemondani. Ellenkező esetben az edzést ki kell fizetni.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -574,7 +577,7 @@ footer a svg{color:#1877F2}
 
   <section id="kapcsolat" aria-labelledby="contact-title">
       <div class="contact-card">
-        <div class="contact-photo"><img src="img/m/02.jpg" alt="Kanca és csikója naplementében a legelőn" width="675" height="900" loading="lazy"></div>
+        <div class="contact-photo"><img src="img/m/02.jpg" srcset="img/m/02.jpg 675w, img/l/02.jpg 1200w" sizes="(max-width: 860px) 100vw, 42vw" alt="Kanca és csikója naplementében a legelőn" width="675" height="900" loading="lazy"></div>
         <div class="contact-body">
           <div>
             <p class="eyebrow" style="color:inherit;opacity:.75">Kapcsolat</p>
@@ -598,17 +601,11 @@ footer a svg{color:#1877F2}
             <span class="k">Kövess minket</span>
             <a class="fb-link" href="https://www.facebook.com/share/19KiNbmKeY/" target="_blank" rel="noopener"><svg class="fb-ico" aria-hidden="true"><use href="#fb"/></svg>Facebook-oldalunk</a>
           </div>
+          <p class="fineprint">© <span id="year">2026</span> Pilisborosjenői Lovasiskola · Lovasoktatás, tereplovaglás, póniséta, táborok</p>
         </div>
       </div>
   </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <span>© <span id="year">2026</span> Pilisborosjenői Lovasiskola · Lovasoktatás, tereplovaglás, póniséta, táborok</span>
-    <a href="https://www.facebook.com/share/19KiNbmKeY/" target="_blank" rel="noopener"><svg class="fb-ico" aria-hidden="true"><use href="#fb"/></svg>Facebook</a>
-  </div>
-</footer>
 
 <nav class="tabbar" id="tabbar" aria-label="Gyors navigáció">
   <a href="#rolunk" data-sec="rolunk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Rólunk</a>
@@ -629,8 +626,13 @@ footer a svg{color:#1877F2}
 (function(){
   // Mobile menu
   var btn=document.getElementById('menu-btn'), nav=document.getElementById('nav');
-  btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
-  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');btn.setAttribute('aria-expanded','false')}});
+  btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o);setHeadLook()});
+  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');setHeadLook()}});
+
+  // Header: transparent on the hero at the very top, solid as soon as the page scrolls (or the menu opens)
+  var header=document.querySelector('.site-header');
+  function setHeadLook(){header.classList.toggle('on-hero',window.scrollY<8&&!nav.classList.contains('open'))}
+  setHeadLook(); window.addEventListener('scroll',setHeadLook,{passive:true});
 
   // Duration dials
   var C=2*Math.PI*25;
@@ -754,10 +756,60 @@ footer a svg{color:#1877F2}
     window.scrollTo({top:0,behavior:smooth?'smooth':'auto'});
   });
 
+  // Hero video: plays only when motion is welcome; the poster stays otherwise
+  var vid=document.getElementById('hero-video'), running=false;
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var shown=function(){running=true};
+    var p=vid.play();
+    if(p&&p.then) p.then(shown,function(){
+      // Autoplay refused (e.g. iPhone Low Power Mode): start on the first touch instead
+      var kick=function(){
+        document.removeEventListener('touchstart',kick); document.removeEventListener('click',kick);
+        var q=vid.play(); if(q&&q.then) q.then(shown,function(){});
+      };
+      document.addEventListener('touchstart',kick,{passive:true}); document.addEventListener('click',kick);
+    });
+    // Pause while the hero is scrolled out of view, so scrolling the rest of the page stays smooth
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        if(!running) return;
+        if(es[0].isIntersecting) vid.play().catch(function(){}); else vid.pause();
+      }).observe(vid);
+    }
+  }
+
   // Anchor jumps land exactly below the sticky header
   var head=document.querySelector('.site-header');
   function setHead(){document.documentElement.style.setProperty('--head-h',head.offsetHeight+'px')}
   setHead(); window.addEventListener('resize',setHead);
+
+  // Hero height is fixed in px at load: mobile browsers (and in-app ones like the Google app)
+  // resize the viewport while their toolbars slide during a scroll, which would make the page jump.
+  // On touch screens it is sized to the full screen height, which the visible area can never exceed
+  // however the toolbars move, so no strip shows below it (the copy stays above the tab bar via
+  // position:sticky). Only a width change (rotation) recalculates it.
+  var heroW=0, touch=window.matchMedia('(pointer: coarse)').matches;
+  function setHeroH(){
+    if(touch&&window.innerWidth===heroW) return;
+    heroW=window.innerWidth;
+    var h=window.innerHeight;
+    if(touch&&window.screen){
+      var a=screen.width, b=screen.height;
+      h=Math.max(h,window.innerHeight>=window.innerWidth?Math.max(a,b):Math.min(a,b));
+    }
+    document.documentElement.style.setProperty('--hero-h',h+'px');
+  }
+  setHeroH(); window.addEventListener('resize',setHeroH);
+
+  // Tab bar (phones): transparent while the hero video still fills the area behind it
+  var tabbar=document.getElementById('tabbar'), hero=document.querySelector('.hero'), tabTick=false;
+  function setTabLook(){
+    tabTick=false;
+    tabbar.classList.toggle('on-hero',hero.getBoundingClientRect().bottom>=window.innerHeight-1);
+  }
+  setTabLook();
+  window.addEventListener('scroll',function(){if(!tabTick){tabTick=true;requestAnimationFrame(setTabLook)}},{passive:true});
+  window.addEventListener('resize',setTabLook);
 
   // Tab bar (phones): highlight the section on screen
   var tabs=[].slice.call(document.querySelectorAll('#tabbar a'));
